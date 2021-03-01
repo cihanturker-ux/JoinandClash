@@ -27,20 +27,20 @@ public class CameraFollowScript : MonoBehaviour
             if (target == null)
                 return; //if target not assign it will return and not gonna work.
 
-            transform.rotation = Quaternion.Euler(lookAtRotation, target.rotation.y, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(lookAtRotation, transform.rotation.y, transform.rotation.z);
             desiredHeight = target.position.y + followHeight;
             desiredDistance = target.position.z - followDistance;
             desiredX = target.position.x + followX;
-            if (Vector3.Distance(transform.position, new Vector3(desiredX, desiredHeight, desiredDistance)) >= lerpClamp)
+            if (Vector3.Distance(transform.position, new Vector3(desiredDistance, desiredHeight, desiredX)) >= lerpClamp)
             {
-                transform.position = Vector3.Lerp(transform.position, new Vector3(desiredX, desiredHeight, desiredDistance), smoothness * Time.fixedDeltaTime);
+                transform.position = Vector3.Lerp(transform.position, new Vector3(desiredDistance, desiredHeight, desiredX ), smoothness * Time.fixedDeltaTime);
             }
         }
-        else
-        {
-            transform.position = new Vector3(0, 9.5f, -9.5f);
-            transform.eulerAngles = new Vector3(15, 0, 0);
-        }
+        //else
+        //{
+        //    transform.position = new Vector3(0, 9.5f, -9.5f);
+        //    transform.eulerAngles = new Vector3(15, 0, 0);
+        //}
     }
 
 }

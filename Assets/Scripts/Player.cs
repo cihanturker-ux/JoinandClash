@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
             {
                 transform.position = Vector3.Lerp(transform.position, endPoint.position, 0.5f * Time.deltaTime);
                 //bitiş noktasına git.
+                //vurma animasyonu bitecek.
             }
             if (Vector3.Distance(transform.position, endPoint.position) < 0.5f)
             {

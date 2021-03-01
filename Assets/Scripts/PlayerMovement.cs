@@ -47,7 +47,7 @@ namespace thirtwo.Scripts.PlayerController
 
         private void Update()
         {
-            distance = reachPoint.position.z - transform.position.z;
+            distance = reachPoint.position.x - transform.position.x;
             if (distance <= 0.2f)
             {
                 reached = true;
@@ -81,7 +81,7 @@ namespace thirtwo.Scripts.PlayerController
 
         private void GetInput()
         {
-            movementDelta = Vector3.forward * forwardSpeed;
+            movementDelta = Vector3.right * forwardSpeed;
             if (Input.GetMouseButtonDown(0))
             {
                 mouseStart = Input.mousePosition.x;
@@ -98,15 +98,15 @@ namespace thirtwo.Scripts.PlayerController
                 {
                     delta = Mathf.Sign(delta);
                 }
-                if (transform.position.x > 4.5f && delta > 0)
+                if (transform.position.z > 1.5f && delta > 0)
                 {
                     return;
                 }
-                else if (transform.position.x < -4.5f && delta < 0)
+                else if (transform.position.z < -1.5f && delta < 0)
                 {
                     return;
                 }
-                movementDelta += Vector3.right * horizontalSpeed * delta;
+                movementDelta += Vector3.back * horizontalSpeed * delta;
             }
         }
 
@@ -153,10 +153,10 @@ namespace thirtwo.Scripts.PlayerController
 
         void EnemyHunt(Collider other)
         {
-            other.transform.rotation = transform.rotation;
+            //other.transform.rotation = transform.rotation;
             other.transform.parent = transform;
             other.isTrigger = false;
-            other.gameObject.GetComponent<MeshRenderer>().material = gameObject.GetComponent<MeshRenderer>().material;
+            other.gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material = gameObject.GetComponent<MeshRenderer>().material;
             other.tag = "Player";
             other.gameObject.AddComponent<Player>();
         }
@@ -171,7 +171,7 @@ namespace thirtwo.Scripts.PlayerController
 
                 tempParent.transform.GetChild(0).rotation = transform.rotation;
                 tempParent.transform.GetChild(0).GetComponent<Collider>().isTrigger = false;
-                tempParent.transform.GetChild(0).GetComponent<MeshRenderer>().material = gameObject.GetComponent<MeshRenderer>().material;
+                tempParent.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = gameObject.GetComponent<MeshRenderer>().material;
                 tempParent.transform.GetChild(0).tag = "Player";
                 tempParent.transform.GetChild(0).gameObject.AddComponent<Player>();
                 tempParent.transform.GetChild(0).parent = transform;
